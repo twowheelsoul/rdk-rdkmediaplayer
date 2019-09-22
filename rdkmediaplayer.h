@@ -71,6 +71,9 @@ public:
     rtReadOnlyProperty(availableAudioLanguages, availableAudioLanguages, rtString);
     rtReadOnlyProperty(availableClosedCaptionsLanguages, availableClosedCaptionsLanguages, rtString);
     rtReadOnlyProperty(availableSpeeds, availableSpeeds, rtString);
+    rtReadOnlyProperty(availableBitrates, availableBitrates, rtString);
+    rtReadOnlyProperty(bitrateCount, bitrateCount, int);
+    rtReadOnlyProperty(bitrates, bitrates, float);
     rtProperty(isInProgressRecording, isInProgressRecording, setIsInProgressRecording, rtString);
     rtProperty(networkBufferSize, networkBufferSize, setNetworkBufferSize, int32_t);
     rtProperty(videoBufferLength, videoBufferLength, setVideoBufferLength, float);
@@ -521,6 +524,10 @@ public:
      */
     rtError availableAudioLanguages(rtString& t) const;
 
+    rtError availableBitrates(rtString& t) const;
+    rtError bitrateCount(int& t) const;
+    rtError bitrates(float& t) const;
+
     /**
      *  @brief This API was supposed to return array of the available captions languages for this video.
      *
@@ -744,7 +751,7 @@ public:
      *  @param[in] width       Width of the video
      *  @param[in] height      Heigt of the video
      */
-    void updateVideoMetadata(const std::string& languages, const std::string& speeds, int duration, int width, int height);
+    void updateVideoMetadata(const std::string& languages, const std::string& speeds, int duration, int width, int height,const std::string& availableBitrates, int bitrateCount, float  bitrates);
 
 private:
     rtError startQueuedTune();
@@ -788,6 +795,9 @@ private:
     std::string m_availableAudioLanguages;
     std::string m_availableClosedCaptionsLanguages;
     std::string m_availableSpeeds;
+    std::string m_availableBitrates;
+    int32_t    m_bitrateCount;
+    float  m_bitrates;
 };
 #endif  // _RT_AAMP_PLAYER_H_
 

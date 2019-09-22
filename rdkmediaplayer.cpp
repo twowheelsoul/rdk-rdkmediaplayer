@@ -91,6 +91,9 @@ rtDefineProperty  (RDKMediaPlayer, duration);
 rtDefineProperty  (RDKMediaPlayer, availableAudioLanguages);
 rtDefineProperty  (RDKMediaPlayer, availableClosedCaptionsLanguages);
 rtDefineProperty  (RDKMediaPlayer, availableSpeeds);
+rtDefineProperty  (RDKMediaPlayer, availableBitrates);
+rtDefineProperty  (RDKMediaPlayer, bitrateCount);
+rtDefineProperty  (RDKMediaPlayer, bitrates);
 rtDefineProperty  (RDKMediaPlayer, tsbEnabled);
 rtDefineMethod    (RDKMediaPlayer, setVideoRectangle);
 rtDefineMethod    (RDKMediaPlayer, play);
@@ -524,6 +527,24 @@ rtError RDKMediaPlayer::duration(float& t) const
     return RT_OK;
 }
 
+rtError RDKMediaPlayer::availableBitrates(rtString&  t) const
+{
+    t = m_availableBitrates.c_str();
+    return RT_OK;
+}
+
+rtError RDKMediaPlayer::bitrateCount(int&  t) const
+{
+    t = m_bitrateCount;
+    return RT_OK;
+}
+
+rtError RDKMediaPlayer::bitrates(float&  t) const
+{
+    t = m_bitrates;
+    return RT_OK;
+}
+
 rtError RDKMediaPlayer::availableAudioLanguages(rtString& t) const
 {
     t = m_availableAudioLanguages.c_str();
@@ -719,15 +740,16 @@ void RDKMediaPlayer::onVidHandleReceived(uint32_t handle)
     updateClosedCaptionsState();
 }
 
-void RDKMediaPlayer::updateVideoMetadata(const std::string& languages, const std::string& speeds, int duration, int width, int height)
+void RDKMediaPlayer::updateVideoMetadata(const std::string& languages, const std::string& speeds, int duration, int width, int height, const std::string& availableBitrates, int bitrateCount, float bitrates)
 {
     m_availableAudioLanguages = languages;
     m_availableSpeeds = speeds;
+    m_availableBitrates = availableBitrates;
 #ifndef DISABLE_CLOSEDCAPTIONS
     m_availableClosedCaptionsLanguages = m_closedCaptions.getAvailableTracks();
 #endif
     std::string mediaType;//should be  "live", "liveTSB", or "recorded"
-    getEventEmitter().send(OnMediaOpenedEvent(mediaType.c_str(), duration, width, height, m_availableSpeeds.c_str(), m_availableAudioLanguages.c_str(),  m_availableClosedCaptionsLanguages.c_str()));
+    getEventEmitter().send(OnMediaOpenedEvent(mediaType.c_str(), duration, width, height, m_availableSpeeds.c_str(), m_availableAudioLanguages.c_str(),  m_availableClosedCaptionsLanguages.c_str(),m_availableBitrates.c_str(),bitrateCount, bitrates));
 }
 
 void RDKMediaPlayer::updateClosedCaptionsState()

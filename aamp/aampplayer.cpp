@@ -173,13 +173,22 @@ public:
         case AAMP_EVENT_MEDIA_METADATA:
         {
             std::string lang;
+            std::string availablebitrates;
             for(int i = 0; i < e.data.metadata.languageCount; ++i)
             {
                 if(i > 0)
                     lang.append(",");
                 lang.append(e.data.metadata.languages[i]);
             }
-            m_player->getParent()->updateVideoMetadata(lang, "-64,-32,-16,-4,-1,0,1,4,16,32,64", e.data.metadata.durationMiliseconds, e.data.metadata.width, e.data.metadata.height);
+            for(int i = 0; i < e.data.metadata.bitrateCount; ++i)
+            {
+                if (i > 0)
+            	   availablebitrates = availablebitrates + ',';
+
+                availablebitrates = availablebitrates + std::to_string(e.data.metadata.bitrates[i]);
+            }
+            
+            m_player->getParent()->updateVideoMetadata(lang, "-64,-32,-16,-4,-1,0,1,4,16,32,64", e.data.metadata.durationMiliseconds, e.data.metadata.width, e.data.metadata.height, availablebitrates , e.data.metadata.bitrateCount, e.data.bitrateChanged.bitrate);
             m_duration = e.data.metadata.durationMiliseconds;
             break;
         }
