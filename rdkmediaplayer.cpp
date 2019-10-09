@@ -740,7 +740,7 @@ void RDKMediaPlayer::onVidHandleReceived(uint32_t handle)
     updateClosedCaptionsState();
 }
 
-void RDKMediaPlayer::updateVideoMetadata(const std::string& languages, const std::string& speeds, int duration, int width, int height, const std::string& availableBitrates, int bitrateCount, float bitrates)
+void RDKMediaPlayer::updateVideoMetadata(const std::string& languages, const std::string& speeds, int duration, int width, int height, const std::string& availableBitrates)
 {
     m_availableAudioLanguages = languages;
     m_availableSpeeds = speeds;
@@ -749,7 +749,7 @@ void RDKMediaPlayer::updateVideoMetadata(const std::string& languages, const std
     m_availableClosedCaptionsLanguages = m_closedCaptions.getAvailableTracks();
 #endif
     std::string mediaType;//should be  "live", "liveTSB", or "recorded"
-    getEventEmitter().send(OnMediaOpenedEvent(mediaType.c_str(), duration, width, height, m_availableSpeeds.c_str(), m_availableAudioLanguages.c_str(),  m_availableClosedCaptionsLanguages.c_str(),m_availableBitrates.c_str(),bitrateCount, bitrates));
+    getEventEmitter().send(OnMediaOpenedEvent(mediaType.c_str(), duration, width, height, m_availableSpeeds.c_str(), m_availableAudioLanguages.c_str(),  m_availableClosedCaptionsLanguages.c_str(),m_availableBitrates.c_str()));
 }
 
 void RDKMediaPlayer::updateClosedCaptionsState()

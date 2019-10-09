@@ -188,7 +188,7 @@ public:
                 availablebitrates = availablebitrates + std::to_string(e.data.metadata.bitrates[i]);
             }
             
-            m_player->getParent()->updateVideoMetadata(lang, "-64,-32,-16,-4,-1,0,1,4,16,32,64", e.data.metadata.durationMiliseconds, e.data.metadata.width, e.data.metadata.height, availablebitrates , e.data.metadata.bitrateCount, e.data.bitrateChanged.bitrate);
+            m_player->getParent()->updateVideoMetadata(lang, "-64,-32,-16,-4,-1,0,1,4,16,32,64", e.data.metadata.durationMiliseconds, e.data.metadata.width, e.data.metadata.height, availablebitrates);
             m_duration = e.data.metadata.durationMiliseconds;
             break;
         }

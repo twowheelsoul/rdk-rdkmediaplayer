@@ -304,7 +304,7 @@ void RMFPlayer::mediaFrameReceived()
     const std::string& lang = m_mediaPlayer->rmf_getAudioLanguages();
     //const std::string& ccDescriptor = m_mediaPlayer->rmf_getCaptionDescriptor();
     std::string speeds = "-60.0, -30.0, -15.0, -4.0, 1.0, 0.5, 4.0, 15.0, 30.0, 60.0";
-    getParent()->updateVideoMetadata(lang, speeds, m_duration, 1280, 720,"Dummy" ,520, 25);//TODO fix 1280x720,Dummy,520,25
+    getParent()->updateVideoMetadata(lang, speeds, m_duration, 1280, 720,"Dummy");//TODO fix 1280x720,Dummy
     if (!tuneTimeLog.empty())
     {
         getParent()->getEventEmitter().send(OnMetricLogEvent(tuneTimeLog.c_str()));

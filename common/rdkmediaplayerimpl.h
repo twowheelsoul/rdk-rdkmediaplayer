@@ -83,7 +83,7 @@ private:
 
 struct OnMediaOpenedEvent: public Event
 {
-    OnMediaOpenedEvent(const char* mediaType, int duration, int width, int height, const char* availableSpeeds, const char* availableAudioLanguages, const char* availableClosedCaptionsLanguages,const char* availableBitrates, int bitrateCount, float bitrates) : Event("onMediaOpened")
+    OnMediaOpenedEvent(const char* mediaType, int duration, int width, int height, const char* availableSpeeds, const char* availableAudioLanguages, const char* availableClosedCaptionsLanguages,const char* availableBitrates) : Event("onMediaOpened")
     {
         m_object.set("mediaType", mediaType);
         m_object.set("duration", duration);
@@ -93,8 +93,6 @@ struct OnMediaOpenedEvent: public Event
         m_object.set("availableAudioLanguages", availableAudioLanguages);
         m_object.set("availableClosedCaptionsLanguages", availableClosedCaptionsLanguages);
         m_object.set("availableBitrates",availableBitrates);
-        m_object.set("bitrateCount",bitrateCount);
-        m_object.set("bitrates",bitrates);
         //TODO handle the following 2
         m_object.set("customProperties", "");
         m_object.set("mediaSegments", "");
@@ -297,9 +295,9 @@ struct OnMetricLogEvent: public Event
 
 struct OnBitrateChanged: public Event
 {
-    OnBitrateChanged(int availableBitrates, const char* reason) : Event("onBitrateChanged")
+    OnBitrateChanged (long availableBitrates, const char* reason) : Event("onBitrateChanged")
     {
-        m_object.set("bitrate", availableBitrates);
+        m_object.set("bitrate", (uint64_t) availableBitrates);
         m_object.set("reason", reason);
     }
 };

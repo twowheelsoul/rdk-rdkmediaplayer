@@ -751,7 +751,7 @@ public:
      *  @param[in] width       Width of the video
      *  @param[in] height      Heigt of the video
      */
-    void updateVideoMetadata(const std::string& languages, const std::string& speeds, int duration, int width, int height,const std::string& availableBitrates, int bitrateCount, float  bitrates);
+    void updateVideoMetadata(const std::string& languages, const std::string& speeds, int duration, int width, int height,const std::string& availableBitrates);
 
 private:
     rtError startQueuedTune();
